@@ -132,7 +132,7 @@
     button.dataset.image = item.image;
     button.dataset.caption = item.title;
     button.setAttribute('aria-label', `Open ${item.title} image`);
-    button.innerHTML = `<img src="${item.image}" alt="${item.alt}" loading="lazy"><span class="gallery-label">${item.title} <small>GitHub-hosted photo</small></span><span class="gallery-open" aria-hidden="true">↗</span>`;
+    button.innerHTML = `<img src="${item.image}" alt="${item.alt}" loading="lazy"><span class="gallery-label">${item.title}</span><span class="gallery-open" aria-hidden="true">↗</span>`;
     button.addEventListener('click', () => openLightbox(button));
     button.querySelector('img').addEventListener('error', () => {
       button.classList.add('gallery-item-missing');
