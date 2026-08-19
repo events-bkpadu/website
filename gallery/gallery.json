@@ -1,0 +1,39 @@
+{
+  "weddings": [
+    "images/weddings/pic1.jpg",
+    "images/weddings/pic2.jpg",
+    "images/weddings/pic3.jpg",
+    "images/weddings/pic4.jpg"
+  ],
+  "engagements": [
+    "images/engagements/pic1.jpg",
+    "images/engagements/pic2.jpg",
+    "images/engagements/pic3.jpg"
+  ],
+  "birthdays": [
+    "images/birthdays/pic1.jpg",
+    "images/birthdays/pic2.jpg",
+    "images/birthdays/pic3.jpg"
+  ],
+  "decorations": [
+    "images/decorations/pic1.jpg",
+    "images/decorations/pic2.jpg",
+    "images/decorations/pic3.jpg",
+    "images/decorations/pic4.jpg"
+  ],
+  "tents": [
+    "images/tents/pic1.jpg",
+    "images/tents/pic2.jpg",
+    "images/tents/pic3.jpg"
+  ],
+  "lighting": [
+    "images/lighting/pic1.jpg",
+    "images/lighting/pic2.jpg",
+    "images/lighting/pic3.jpg"
+  ],
+  "other": [
+    "images/other/pic1.jpg",
+    "images/other/pic2.jpg",
+    "images/other/pic3.jpg"
+  ]
+}

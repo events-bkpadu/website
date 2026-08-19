@@ -13,6 +13,7 @@
   const lightboxCloseButtons = document.querySelectorAll('[data-lightbox-close]');
   const previousButton = document.querySelector('[data-lightbox-prev]');
   const nextButton = document.querySelector('[data-lightbox-next]');
+  const themeToggle = document.querySelector('[data-theme-toggle]');
   let visibleItems = [];
   let currentIndex = 0;
   let lastFocusedElement = null;
@@ -20,7 +21,33 @@
   let currentPage = 1;
   let galleryData = [];
   const itemsPerPage = 6;
-  const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+  const categoryLabels = {
+    weddings: 'Weddings',
+    engagements: 'Engagements',
+    birthdays: 'Birthdays',
+    decorations: 'Decorations',
+    tents: 'Tent Setup',
+    lighting: 'Lighting',
+    other: 'Other Functions'
+  };
+
+  const applyTheme = (theme) => {
+    const nextTheme = theme === 'terracotta' ? 'terracotta' : 'forest';
+    document.documentElement.dataset.theme = nextTheme === 'forest' ? '' : nextTheme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', nextTheme === 'terracotta' ? '#33221f' : '#18251f');
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(nextTheme === 'terracotta'));
+      themeToggle.querySelector('span:last-child').textContent = nextTheme === 'terracotta' ? 'Forest theme' : 'Warm theme';
+      themeToggle.title = nextTheme === 'terracotta' ? 'Switch to forest theme' : 'Switch to warm theme';
+    }
+  };
+
+  applyTheme(localStorage.getItem('srinivasa-theme') || 'forest');
+  themeToggle?.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'terracotta' ? 'forest' : 'terracotta';
+    localStorage.setItem('srinivasa-theme', nextTheme);
+    applyTheme(nextTheme);
+  });
 
   const setConfigText = (selector, value) => {
     document.querySelectorAll(selector).forEach((element) => {
@@ -52,7 +79,11 @@
       if (!SITE_CONFIG.whatsapp.startsWith('[')) link.href = `https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, '')}`;
     });
     document.querySelectorAll('[data-contact-maps]').forEach((link) => {
-      if (SITE_CONFIG.mapsUrl) link.href = SITE_CONFIG.mapsUrl;
+      if (SITE_CONFIG.mapsUrl) {
+        link.href = SITE_CONFIG.mapsUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      }
     });
   };
 
@@ -74,36 +105,22 @@
 
   const getGalleryData = () => galleryData;
 
-  const getDirectoryFiles = async (category) => {
-    try {
-      const response = await fetch(`${category.folder}/`);
-      if (!response.ok) return [];
-      const html = await response.text();
-      const links = [...html.matchAll(/href=["']([^"']+)["']/gi)].map((match) => match[1]);
-      return links
-        .map((link) => decodeURIComponent(link.split('/').pop()))
-        .filter((file) => new RegExp(`^pic\\d+\\.(${imageExtensions.join('|')})$`, 'i').test(file));
-    } catch {
-      return [];
-    }
-  };
-
-  const discoverGalleryImages = async () => {
-    if (typeof GALLERY_CATEGORIES === 'undefined') return [];
+  const loadGalleryJson = async () => {
+    const response = await fetch('gallery/gallery.json');
+    if (!response.ok) throw new Error(`Gallery JSON returned HTTP ${response.status}`);
+    const categories = await response.json();
     const discovered = [];
-    for (const category of GALLERY_CATEGORIES) {
-      const directoryFiles = await getDirectoryFiles(category);
-      const files = directoryFiles.length ? directoryFiles : category.files || [];
-      files.sort((first, second) => Number(first.match(/\d+/)?.[0]) - Number(second.match(/\d+/)?.[0])).forEach((file) => {
-        const number = file.match(/\d+/)?.[0];
+    Object.entries(categories).forEach(([category, images]) => {
+      if (!Array.isArray(images)) return;
+      images.forEach((image, index) => {
         discovered.push({
-          category: category.category,
-          title: `${category.title} ${number}`,
-          alt: `${category.alt}, photo ${number}`,
-          image: `${category.folder}/${file}`
+          category,
+          title: `${categoryLabels[category] || category} ${index + 1}`,
+          alt: `${categoryLabels[category] || category} event setup ${index + 1}`,
+          image
         });
       });
-    }
+    });
     return discovered;
   };
 
@@ -115,7 +132,7 @@
     button.dataset.image = item.image;
     button.dataset.caption = item.title;
     button.setAttribute('aria-label', `Open ${item.title} image`);
-    button.innerHTML = `<img src="${item.image}" alt="${item.alt}" loading="lazy"><span class="gallery-label">${item.title} <small>Local photo</small></span><span class="gallery-open" aria-hidden="true">↗</span>`;
+    button.innerHTML = `<img src="${item.image}" alt="${item.alt}" loading="lazy"><span class="gallery-label">${item.title}</span><span class="gallery-open" aria-hidden="true">↗</span>`;
     button.addEventListener('click', () => openLightbox(button));
     button.querySelector('img').addEventListener('error', () => {
       button.classList.add('gallery-item-missing');
@@ -135,7 +152,7 @@
     if (!filteredItems.length) {
       const emptyMessage = document.createElement('p');
       emptyMessage.className = 'gallery-empty';
-      emptyMessage.textContent = 'Add local photos as pic1, pic2, pic3 in the category folders to populate the gallery.';
+      emptyMessage.textContent = 'Our event gallery is being updated. Please check back soon.';
       galleryGrid.replaceChildren(emptyMessage);
     } else {
       galleryGrid.replaceChildren(...visibleItems);
@@ -173,7 +190,7 @@
     if (!item || !lightboxImage || !lightboxCaption) return;
     lightboxImage.src = item.dataset.image;
     lightboxImage.alt = item.querySelector('img').alt;
-    lightboxCaption.textContent = `${item.dataset.caption} · Replace with a Srinivasa Tent House photograph`;
+    lightboxCaption.textContent = `${item.dataset.caption} · Srinivasa Tent House`;
   };
 
   const openLightbox = (item) => {
@@ -208,9 +225,12 @@
   });
 
   applySiteConfig();
-  discoverGalleryImages().then((items) => {
+  loadGalleryJson().then((items) => {
     galleryData = items;
     renderGallery();
+  }).catch((error) => {
+    console.error(error);
+    galleryGrid?.querySelector('.gallery-empty')?.replaceChildren('Gallery images could not be loaded.');
   });
 
   const revealElements = document.querySelectorAll('.reveal');
