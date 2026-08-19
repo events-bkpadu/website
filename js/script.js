@@ -13,6 +13,7 @@
   const lightboxCloseButtons = document.querySelectorAll('[data-lightbox-close]');
   const previousButton = document.querySelector('[data-lightbox-prev]');
   const nextButton = document.querySelector('[data-lightbox-next]');
+  const themeToggle = document.querySelector('[data-theme-toggle]');
   let visibleItems = [];
   let currentIndex = 0;
   let lastFocusedElement = null;
@@ -21,6 +22,24 @@
   let galleryData = [];
   const itemsPerPage = 6;
   const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+
+  const applyTheme = (theme) => {
+    const nextTheme = theme === 'terracotta' ? 'terracotta' : 'forest';
+    document.documentElement.dataset.theme = nextTheme === 'forest' ? '' : nextTheme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', nextTheme === 'terracotta' ? '#33221f' : '#18251f');
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(nextTheme === 'terracotta'));
+      themeToggle.querySelector('span:last-child').textContent = nextTheme === 'terracotta' ? 'Forest theme' : 'Warm theme';
+      themeToggle.title = nextTheme === 'terracotta' ? 'Switch to forest theme' : 'Switch to warm theme';
+    }
+  };
+
+  applyTheme(localStorage.getItem('srinivasa-theme') || 'forest');
+  themeToggle?.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'terracotta' ? 'forest' : 'terracotta';
+    localStorage.setItem('srinivasa-theme', nextTheme);
+    applyTheme(nextTheme);
+  });
 
   const setConfigText = (selector, value) => {
     document.querySelectorAll(selector).forEach((element) => {
