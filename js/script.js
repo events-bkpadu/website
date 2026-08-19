@@ -116,7 +116,7 @@
         discovered.push({
           category,
           title: `${categoryLabels[category] || category} ${index + 1}`,
-          alt: `${categoryLabels[category] || category} reference image ${index + 1}`,
+          alt: `${categoryLabels[category] || category} event setup ${index + 1}`,
           image
         });
       });
@@ -152,7 +152,7 @@
     if (!filteredItems.length) {
       const emptyMessage = document.createElement('p');
       emptyMessage.className = 'gallery-empty';
-      emptyMessage.textContent = 'Add public image URLs to gallery/gallery.json to populate the gallery.';
+      emptyMessage.textContent = 'Our event gallery is being updated. Please check back soon.';
       galleryGrid.replaceChildren(emptyMessage);
     } else {
       galleryGrid.replaceChildren(...visibleItems);
@@ -190,7 +190,7 @@
     if (!item || !lightboxImage || !lightboxCaption) return;
     lightboxImage.src = item.dataset.image;
     lightboxImage.alt = item.querySelector('img').alt;
-    lightboxCaption.textContent = `${item.dataset.caption} · Replace with a Srinivasa Tent House photograph`;
+    lightboxCaption.textContent = `${item.dataset.caption} · Srinivasa Tent House`;
   };
 
   const openLightbox = (item) => {
