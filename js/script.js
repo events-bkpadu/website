@@ -21,7 +21,15 @@
   let currentPage = 1;
   let galleryData = [];
   const itemsPerPage = 6;
-  const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+  const categoryLabels = {
+    weddings: 'Weddings',
+    engagements: 'Engagements',
+    birthdays: 'Birthdays',
+    decorations: 'Decorations',
+    tents: 'Tent Setup',
+    lighting: 'Lighting',
+    other: 'Other Functions'
+  };
 
   const applyTheme = (theme) => {
     const nextTheme = theme === 'terracotta' ? 'terracotta' : 'forest';
@@ -71,7 +79,11 @@
       if (!SITE_CONFIG.whatsapp.startsWith('[')) link.href = `https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, '')}`;
     });
     document.querySelectorAll('[data-contact-maps]').forEach((link) => {
-      if (SITE_CONFIG.mapsUrl) link.href = SITE_CONFIG.mapsUrl;
+      if (SITE_CONFIG.mapsUrl) {
+        link.href = SITE_CONFIG.mapsUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      }
     });
   };
 
@@ -93,36 +105,22 @@
 
   const getGalleryData = () => galleryData;
 
-  const getDirectoryFiles = async (category) => {
-    try {
-      const response = await fetch(`${category.folder}/`);
-      if (!response.ok) return [];
-      const html = await response.text();
-      const links = [...html.matchAll(/href=["']([^"']+)["']/gi)].map((match) => match[1]);
-      return links
-        .map((link) => decodeURIComponent(link.split('/').pop()))
-        .filter((file) => new RegExp(`^pic\\d+\\.(${imageExtensions.join('|')})$`, 'i').test(file));
-    } catch {
-      return [];
-    }
-  };
-
-  const discoverGalleryImages = async () => {
-    if (typeof GALLERY_CATEGORIES === 'undefined') return [];
+  const loadGalleryJson = async () => {
+    const response = await fetch('gallery/gallery.json');
+    if (!response.ok) throw new Error(`Gallery JSON returned HTTP ${response.status}`);
+    const categories = await response.json();
     const discovered = [];
-    for (const category of GALLERY_CATEGORIES) {
-      const directoryFiles = await getDirectoryFiles(category);
-      const files = directoryFiles.length ? directoryFiles : category.files || [];
-      files.sort((first, second) => Number(first.match(/\d+/)?.[0]) - Number(second.match(/\d+/)?.[0])).forEach((file) => {
-        const number = file.match(/\d+/)?.[0];
+    Object.entries(categories).forEach(([category, images]) => {
+      if (!Array.isArray(images)) return;
+      images.forEach((image, index) => {
         discovered.push({
-          category: category.category,
-          title: `${category.title} ${number}`,
-          alt: `${category.alt}, photo ${number}`,
-          image: `${category.folder}/${file}`
+          category,
+          title: `${categoryLabels[category] || category} ${index + 1}`,
+          alt: `${categoryLabels[category] || category} reference image ${index + 1}`,
+          image
         });
       });
-    }
+    });
     return discovered;
   };
 
@@ -154,7 +152,7 @@
     if (!filteredItems.length) {
       const emptyMessage = document.createElement('p');
       emptyMessage.className = 'gallery-empty';
-      emptyMessage.textContent = 'Add local photos as pic1, pic2, pic3 in the category folders to populate the gallery.';
+      emptyMessage.textContent = 'Add public image URLs to gallery/gallery.json to populate the gallery.';
       galleryGrid.replaceChildren(emptyMessage);
     } else {
       galleryGrid.replaceChildren(...visibleItems);
@@ -227,9 +225,12 @@
   });
 
   applySiteConfig();
-  discoverGalleryImages().then((items) => {
+  loadGalleryJson().then((items) => {
     galleryData = items;
     renderGallery();
+  }).catch((error) => {
+    console.error(error);
+    galleryGrid?.querySelector('.gallery-empty')?.replaceChildren('Gallery images could not be loaded.');
   });
 
   const revealElements = document.querySelectorAll('.reveal');
