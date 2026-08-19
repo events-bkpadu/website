@@ -1,0 +1,2 @@
+mkdir -p .github/skills/bkpadu-website
+touch .github/skills/bkpadu-website/SKILL.md
