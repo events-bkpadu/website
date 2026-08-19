@@ -7,5 +7,5 @@ const SITE_CONFIG = {
   whatsapp: '9866938717',
   mapsUrl: 'https://maps.app.goo.gl/GbSVDWPLwojaQKJC8',
   mapsLabel: 'View on Google Maps',
-  heroImage: 'https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/decorations/pic1.jpg'
+  heroImage: 'images/decorations/pic1.jpg'
 };

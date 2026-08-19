@@ -2,7 +2,7 @@
 
 ## Add Gallery Images
 
-The gallery uses checked-in images in `images/` and public GitHub raw URLs in `gallery/gallery.json`. Its object keys become the gallery categories.
+The gallery uses checked-in images in `images/` and same-site public paths in `gallery/gallery.json`. Its object keys become the gallery categories.
 
 1. Open `gallery/gallery.json`.
 2. Add the image to the matching `images/<category>/` folder.
@@ -28,6 +28,4 @@ Example:
 
 `gallery.json` is intentionally plain JSON. JSON does not support comments, so keep explanations in this README instead of adding comments to that file.
 
-The image URLs should use this repository's raw GitHub path so they remain publicly embeddable:
-
-`https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/<category>/<filename>`
+The image paths are public wherever this repository is deployed, for example `images/birthdays/pic2.jpg`.

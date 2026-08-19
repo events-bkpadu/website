@@ -1,39 +1,39 @@
 {
   "weddings": [
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/weddings/pic1.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/weddings/pic2.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/weddings/pic3.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/weddings/pic4.jpg"
+    "images/weddings/pic1.jpg",
+    "images/weddings/pic2.jpg",
+    "images/weddings/pic3.jpg",
+    "images/weddings/pic4.jpg"
   ],
   "engagements": [
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/engagements/pic1.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/engagements/pic2.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/engagements/pic3.jpg"
+    "images/engagements/pic1.jpg",
+    "images/engagements/pic2.jpg",
+    "images/engagements/pic3.jpg"
   ],
   "birthdays": [
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/birthdays/pic1.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/birthdays/pic2.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/birthdays/pic3.jpg"
+    "images/birthdays/pic1.jpg",
+    "images/birthdays/pic2.jpg",
+    "images/birthdays/pic3.jpg"
   ],
   "decorations": [
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/decorations/pic1.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/decorations/pic2.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/decorations/pic3.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/decorations/pic4.jpg"
+    "images/decorations/pic1.jpg",
+    "images/decorations/pic2.jpg",
+    "images/decorations/pic3.jpg",
+    "images/decorations/pic4.jpg"
   ],
   "tents": [
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/tents/pic1.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/tents/pic2.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/tents/pic3.jpg"
+    "images/tents/pic1.jpg",
+    "images/tents/pic2.jpg",
+    "images/tents/pic3.jpg"
   ],
   "lighting": [
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/lighting/pic1.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/lighting/pic2.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/lighting/pic3.jpg"
+    "images/lighting/pic1.jpg",
+    "images/lighting/pic2.jpg",
+    "images/lighting/pic3.jpg"
   ],
   "other": [
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/other/pic1.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/other/pic2.jpg",
-    "https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/other/pic3.jpg"
+    "images/other/pic1.jpg",
+    "images/other/pic2.jpg",
+    "images/other/pic3.jpg"
   ]
 }
