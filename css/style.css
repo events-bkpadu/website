@@ -239,7 +239,7 @@ h1 em, h2 em { color: var(--gold); font-style: normal; }
 .gallery-item[hidden] { display: none; }
 .gallery-empty { grid-column: 1 / -1; margin: 0; padding: 70px 20px; border: 1px dashed var(--line); color: var(--muted); text-align: center; }
 .gallery-item-missing { display: grid; place-items: center; background: var(--sand); }
-.gallery-item-missing:before { position: absolute; z-index: 1; top: 50%; left: 50%; color: var(--copper); content: 'Add photo to images folder'; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; transform: translate(-50%, -50%); white-space: nowrap; }
+.gallery-item-missing:before { position: absolute; z-index: 1; top: 50%; left: 50%; color: var(--copper); content: 'Image unavailable'; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; transform: translate(-50%, -50%); white-space: nowrap; }
 .gallery-item-missing:after, .gallery-item-missing .gallery-label, .gallery-item-missing .gallery-open { display: none; }
 .gallery-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 28px; }
 .pagination-button { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line); color: var(--muted); background: transparent; cursor: pointer; font-size: 11px; transition: color .2s, background .2s, border-color .2s; }

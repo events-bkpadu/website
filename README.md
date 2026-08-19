@@ -2,10 +2,10 @@
 
 ## Add Gallery Images
 
-The gallery uses one file only: `gallery/gallery.json`. Its object keys become the gallery categories, and each array contains public image URLs.
+The gallery uses checked-in images in `images/` and public GitHub raw URLs in `gallery/gallery.json`. Its object keys become the gallery categories.
 
 1. Open `gallery/gallery.json`.
-2. Add direct public image URLs under the appropriate category.
+2. Add the image to the matching `images/<category>/` folder.
 3. Save the file.
 4. Refresh the website.
 
@@ -28,4 +28,6 @@ Example:
 
 `gallery.json` is intentionally plain JSON. JSON does not support comments, so keep explanations in this README instead of adding comments to that file.
 
-Only public image URLs are supported. Categories are defined by the JSON keys, so you can add a new category without creating a folder or editing JavaScript. Real Srinivasa Tent House photographs should replace temporary reference images.
+The image URLs should use this repository's raw GitHub path so they remain publicly embeddable:
+
+`https://raw.githubusercontent.com/events-bkpadu/website/images-link/images/<category>/<filename>`

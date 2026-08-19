@@ -1,3 +1,3 @@
-# Local Gallery Images
+# Gallery Images
 
-Gallery images are managed only from `gallery/gallery.json`. Its keys define categories and its arrays contain public image URLs. Do not create or manage image folders for gallery content.
+Images in these category folders are committed to the repository and referenced publicly through GitHub raw URLs listed in `gallery/gallery.json`.
