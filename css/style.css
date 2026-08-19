@@ -170,7 +170,7 @@ h1 em, h2 em { color: var(--gold); font-style: normal; }
 .section-heading h2 { grid-column: 2; }
 .section-heading > p { max-width: 250px; margin: 0; color: var(--muted); font-size: 15px; }
 .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-.service-card { position: relative; min-height: 280px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card-wash); transition: background .2s, transform .2s; }
+.service-card { position: relative; display: flex; min-height: 280px; flex-direction: column; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card-wash); transition: background .2s, transform .2s; }
 .service-card:hover { background: var(--paper); transform: translateY(-3px); }
 .service-card:hover .service-icon { transform: translateY(-4px) rotate(-4deg); }
 .service-icon { transition: transform .35s var(--ease-premium); }
@@ -198,7 +198,7 @@ h1 em, h2 em { color: var(--gold); font-style: normal; }
 .icon-complete:after { width: 15px; height: 1px; background: currentColor; transform: rotate(45deg); }
 .service-card h3 { margin: 0 0 10px; font-family: var(--serif); font-size: 25px; letter-spacing: -.02em; }
 .service-card p { max-width: 240px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
-.service-card a { position: absolute; bottom: 27px; left: 28px; color: var(--copper); font-size: 13px; font-weight: 700; }
+.service-card a { display: inline-block; margin-top: auto; padding-top: 24px; color: var(--copper); font-size: 13px; font-weight: 700; }
 .service-card a span { padding-left: 8px; font-size: 15px; }
 .service-card-feature { color: var(--paper); background: var(--ink); }
 .service-card-feature:hover { background: var(--ink-soft); }
